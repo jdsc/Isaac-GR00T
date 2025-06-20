@@ -1251,20 +1251,11 @@ class ConfigGenerator(BaseDataConfig):
     Will name action keys as action.arm_<arm_id> and action.gripper_<arm_id>
     """
 
-    def __init__(self, num_arms: int, num_cams: int):
+    def __init__(self, num_arms: int, num_cams: int, video_keys: list[str], state_keys: list[str], action_keys: list[str]):
         super().__init__()
         self.num_arms = num_arms
         self.num_cams = num_cams
-
-        self.video_keys = ["video.image_cam_{}".format(i) for i in range(num_cams)]
-
-        state_keys: list[str] = []
-        action_keys: list[str] = []
-
-        for i in range(num_arms):
-            state_keys.append("state.arm_{}".format(i))
-            action_keys.append("action.arm_{}".format(i))
-
+        self.video_keys = video_keys
         self.state_keys = state_keys
         self.action_keys = action_keys
 
