@@ -1348,8 +1348,29 @@ class ConfigGeneratorFromNames(BaseDataConfig):
     Will name action keys as the given parameters
     """
 
-    def __init__(self, video_keys: list[str], state_keys: list[str], action_keys: list[str]):
+    # def __init__(self, video_keys: list[str], state_keys: list[str], action_keys: list[str]):
+    #     super().__init__()
+
+    #     self.video_keys = video_keys
+    #     self.state_keys = state_keys
+    #     self.action_keys = action_keys
+
+    #     self.language_keys = ["annotation.human.task_description"]
+
+    #     self.observation_indices = [0]
+    #     self.action_indices = list(range(16))
+
+    def __init__(
+            self, 
+            num_arms: int, 
+            num_cams: int, 
+            video_keys: list[str],
+            state_keys: list[str],
+            action_keys: list[str]
+    ):
         super().__init__()
+        self.num_arms = num_arms
+        self.num_cams = num_cams
 
         self.video_keys = video_keys
         self.state_keys = state_keys
