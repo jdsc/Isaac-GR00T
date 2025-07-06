@@ -17,7 +17,6 @@ from gr00t.eval.robot import RobotInferenceServer  # type: ignore
 from gr00t.experiment.data_config import ConfigGenerator  # type: ignore
 from gr00t.model.policy import Gr00tPolicy  # type: ignore
 
-model_path = "PLB/GR00T-N1-so100-wc"  # Change this to your model path
 
 # Open your trained model and check the experiment_cfg/metadata.json file
 
@@ -25,13 +24,16 @@ model_path = "PLB/GR00T-N1-so100-wc"  # Change this to your model path
 embodiment_tag = "new_embodiment"  # Change this to your embodiment tag, in most cases it will just be "new_embodiment"
 
 # Please fill with the number of arms and cameras used to train the model
+
+model_path = "hiroyukikaneko/gr00t_initial_ft2"
 data_config = ConfigGenerator(
-   num_arms=1,
-   num_cams=2,
-   video_keys=["video.cam_context", "video.cam_wrist"],
-   state_keys = ["state.single_arm", "state.gripper"],
-   action_keys = ["action.single_arm", "action.gripper"]
-)
+  num_arms=1, 
+  num_cams=2, 
+  video_keys= ["video.image_cam_0", "video.image_cam_1"], #["video.cam_context", "video.cam_wrist"],
+  state_keys = ["state.arm_0"], #["state.single_arm", "state.gripper"],
+  action_keys = ["action.arm_0"] #["action.single_arm", "action.gripper"])
+ )
+
 
 
 args = Namespace(

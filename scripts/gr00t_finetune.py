@@ -79,13 +79,13 @@ class Config:
     tune_llm: bool = False
     """Whether to fine-tune the language model backbone."""
 
-    tune_visual: bool = True
+    tune_visual: bool = False # True
     """Whether to fine-tune the vision tower."""
 
     tune_projector: bool = True
     """Whether to fine-tune the projector."""
 
-    tune_diffusion_model: bool = True
+    tune_diffusion_model: bool = False #True
     """Whether to fine-tune the diffusion model."""
 
     resume: bool = False
@@ -165,8 +165,11 @@ def main(config: Config):
     # ------------ step 1: load dataset ------------
     embodiment_tag = EmbodimentTag(config.embodiment_tag)
 
-    # 1.1 modality configs and transforms
-    data_config_cls = ConfigGenerator(num_arms=config.num_arms, num_cams=config.num_cams)
+    # # 1.1 modality configs and transforms
+    data_config_cls = ConfigGenerator(num_arms=config.num_arms, num_cams=config.num_cams,
+                                      video_keys=config.video_keys, state_keys=config.state_keys, 
+                                      action_keys = config.action_keys,
+                                      )
     modality_configs = data_config_cls.modality_config()
     transforms = data_config_cls.transform()
 
@@ -285,6 +288,11 @@ def main(config: Config):
 if __name__ == "__main__":
     # Parse arguments using tyro
     config = tyro.cli(Config)
+
+    # SO100のを追加
+    config.video_keys = ["video.image_cam_0", "video.image_cam_1"]
+    config.state_keys = ["state.arm_0"]
+    config.action_keys = ["action.arm_0"]
 
     # Print the tyro config
     print("\n" + "=" * 50)
