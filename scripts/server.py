@@ -25,7 +25,7 @@ embodiment_tag = "new_embodiment"  # Change this to your embodiment tag, in most
 
 # Please fill with the number of arms and cameras used to train the model
 
-model_path = "hiroyukikaneko/gr00t_initial_ft2"
+model_path = "" # PLB/GR00T-N1-so100-wc"  # Change this to your model path "hiroyukikaneko/gr00t_initial_ft2"
 data_config = ConfigGenerator(
   num_arms=1, 
   num_cams=2, 
