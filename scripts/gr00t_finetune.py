@@ -79,7 +79,7 @@ class Config:
     tune_llm: bool = False
     """Whether to fine-tune the language model backbone."""
 
-    tune_visual: bool = False # True
+    tune_visual: bool = False # True Trueだと、カメラ1台、バッチ16でもOOM
     """Whether to fine-tune the vision tower."""
 
     tune_projector: bool = True
@@ -290,9 +290,11 @@ if __name__ == "__main__":
     config = tyro.cli(Config)
 
     # SO100のを追加
-    config.video_keys = ["video.image_cam_0", "video.image_cam_1"]
+    config.video_keys = ["video.image_cam_0"]# , "video.image_cam_1"
     config.state_keys = ["state.arm_0"]
     config.action_keys = ["action.arm_0"]
+
+    print("CAUTION!!! Check the numver of cameras. If wrong, modigiy Isaac-GR00T/scripts/gr00t_finetune.py!", config.video_keys)
 
     # Print the tyro config
     print("\n" + "=" * 50)
