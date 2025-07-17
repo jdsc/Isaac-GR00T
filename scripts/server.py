@@ -25,11 +25,11 @@ embodiment_tag = "new_embodiment"  # Change this to your embodiment tag, in most
 
 # Please fill with the number of arms and cameras used to train the model
 
-model_path = "hiroyukikaneko/gr00t_initial_ft2"
+model_path = "hiroyukikaneko/gr00t_ft11_sy820_picking_orange_block_from_left_to_right_20epoch" #"hiroyukikaneko/gr00t_initial_ft6" #引数で渡せるようにしたい # PLB/GR00T-N1-so100-wc"  # Change this to your model path "hiroyukikaneko/gr00t_initial_ft2"
 data_config = ConfigGenerator(
   num_arms=1, 
-  num_cams=2, 
-  video_keys= ["video.image_cam_0", "video.image_cam_1"], #["video.cam_context", "video.cam_wrist"],
+  num_cams=2, # 2 
+  video_keys= ["video.image_cam_0", "video.image_cam_1"], #,    #["video.cam_context", "video.cam_wrist"],
   state_keys = ["state.arm_0"], #["state.single_arm", "state.gripper"],
   action_keys = ["action.arm_0"] #["action.single_arm", "action.gripper"])
  )

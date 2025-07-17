@@ -290,7 +290,7 @@ if __name__ == "__main__":
     config = tyro.cli(Config)
 
     # SO100のを追加
-    config.video_keys = ["video.image_cam_0"]# , "video.image_cam_1"
+    config.video_keys = ["video.image_cam_0", "video.image_cam_1"]# , "video.image_cam_1"
     config.state_keys = ["state.arm_0"]
     config.action_keys = ["action.arm_0"]
 
