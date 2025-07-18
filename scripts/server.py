@@ -10,6 +10,7 @@ To install the gr00t repository, you can use the following command:
 """
 
 import os
+import argparse
 from argparse import Namespace
 
 # The following imports require the gr00t repository to be installed
@@ -17,27 +18,35 @@ from gr00t.eval.robot import RobotInferenceServer  # type: ignore
 from gr00t.experiment.data_config import ConfigGenerator  # type: ignore
 from gr00t.model.policy import Gr00tPolicy  # type: ignore
 
-
+# model_path = ""  # Change this to your model path
+parser = argparse.ArgumentParser(description="Run the Gr00t inference server.")
+parser.add_argument(
+    "--model_id", 
+    type=str, 
+    required=True,  # 必須の引数
+    help="Path to the trained model directory."
+)
+args = parser.parse_args()
 # Open your trained model and check the experiment_cfg/metadata.json file
 
 # Look for the name of the embodiment tag
 embodiment_tag = "new_embodiment"  # Change this to your embodiment tag, in most cases it will just be "new_embodiment"
 
 # Please fill with the number of arms and cameras used to train the model
+data_config = ConfigGenerator(num_arms=1, 
+                              num_cams=2,  
+                              video_keys= ["video.image_cam_0", "video.image_cam_1"], #,    #["video.cam_context", "video.cam_wrist"],
+                              state_keys = ["state.arm_0"], #["state.single_arm", "state.gripper"],
+                              action_keys = ["action.arm_0"] #["action.single_arm", "action.gripper"])
+    )
 
-model_path = "hiroyukikaneko/gr00t_ft11_sy820_picking_orange_block_from_left_to_right_20epoch" #"hiroyukikaneko/gr00t_initial_ft6" #引数で渡せるようにしたい # PLB/GR00T-N1-so100-wc"  # Change this to your model path "hiroyukikaneko/gr00t_initial_ft2"
-data_config = ConfigGenerator(
-  num_arms=1, 
-  num_cams=2, # 2 
-  video_keys= ["video.image_cam_0", "video.image_cam_1"], #,    #["video.cam_context", "video.cam_wrist"],
-  state_keys = ["state.arm_0"], #["state.single_arm", "state.gripper"],
-  action_keys = ["action.arm_0"] #["action.single_arm", "action.gripper"])
- )
-
-
+# if not os.path.exists(model_path):
+#     raise FileNotFoundError(f"Model path {model_path} does not exist.")
+# else:
+#     print(f"Model path {model_path} found.")
 
 args = Namespace(
-    model_path=model_path,
+    model_path=args.model_id,
     embodiment_tag=embodiment_tag,
     data_config=data_config,
     server=True,
