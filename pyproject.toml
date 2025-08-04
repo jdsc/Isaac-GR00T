@@ -66,6 +66,17 @@ dependencies = [
     "flash-attn==2.7.1.post4",
     "ipython>=8.37.0",
     "ipykernel>=6.29.5",
+    "httpx",
+    "json_numpy",
+    "loguru",
+    "fastapi",
+    "netifaces",
+    "toml",
+    "pyserial",
+    "pybullet",
+    "go2-webrtc-connect",
+    "dynamixel_sdk",
+    "piper_sdk"
 ]
 
 [project.optional-dependencies]
